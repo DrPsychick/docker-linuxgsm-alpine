@@ -1,32 +1,27 @@
-FROM frolvlad/alpine-glibc
+FROM joshhsoj1902/linuxgsm-docker
 
-# ! runs into many "command not found" or "unrecognized option" errors -> not worth the effort, use a supported docker container
+# install mono
+USER root
+RUN apt-get update && apt-get install -y apt-transport-https
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF \
+    && echo 'deb https://download.mono-project.com/repo/ubuntu stable-xenial main' | tee /etc/apt/sources.list.d/mono-official-stable.list \
+    && apt-get update \
+    && apt-get install -y mono-complete referenceassemblies-pcl ca-certificates-mono mono-xsp4
 
-RUN apk add --no-cache \
-    jq \
-    tmux \
-    git \
-    bash \
-    curl wget \
-    unzip gzip bzip2 \
-    binutils \
-    bc \
-    bsdmainutils \
-    jq \
-    libstdc++6
+# Cleanup 
+RUN apt-get -y autoremove && \
+    apt-get -y clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /tmp/* && \
+    rm -rf /var/tmp/*
 
-
-# switch to user steam
-RUN adduser -D -s /bin/bash steam
+# install ecoserver
 USER steam
+RUN cd /home/steam/linuxgsm \
+    && ./linuxgsm.sh ecoserver \
+    && ./ecoserver auto-install
 
-RUN git clone "https://github.com/GameServerManagers/LinuxGSM.git" /home/steam/linuxgsm \
-    && git clone "https://github.com/GameServerManagers/Game-Server-Configs.git" /home/steam/linuxgsm-configs
+ENV LGSM_GAMESERVERNAME ecoserver
+ENV LGSM_UPDATEINSTALLSKIP UPDATE
 
-RUN cd linuxgsm && ./linuxgsm.sh ecoserver && yes | ./ecoserver install
-
-#RUN curl -o linuxgsm.sh https://linuxgsm.sh \
-#    && chmod +x linuxgsm.sh
-    #&& bash linuxgsm.sh ecoserver
-
-CMD ["sh"]
+EXPOSE 3000/udp 3001/tcp
