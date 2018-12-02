@@ -21,13 +21,12 @@ RUN usermod -m -l ecoserver -d /home/ecoserver steam && chown -R ecoserver:ecose
 
 # install ecoserver
 USER steam
-RUN cd /home/steam/linuxgsm \
+RUN cd /home/steam \
     && ./linuxgsm.sh ecoserver \
     && ./ecoserver ul \
     && ./ecoserver fu \
     && ./ecoserver auto-install
 
-ENV LGSM_GAMESERVERNAME ecoserver
-ENV LGSM_UPDATEINSTALLSKIP UPDATE
-
 EXPOSE 3000/udp 3001/tcp
+
+
