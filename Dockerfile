@@ -31,6 +31,7 @@ RUN cd /home/ecoserver \
     && ./ecoserver auto-install
 
 WORKDIR /home/ecoserver
+ENV PATH=$PATH:/home/ecoserver
 
 EXPOSE 3000/udp 3001/tcp
 
