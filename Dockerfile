@@ -9,6 +9,8 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E03280
     && apt-get update \
     && apt-get install -y jq mono-complete referenceassemblies-pcl ca-certificates-mono mono-xsp4
 
+RUN apt-get install -y mailutils postfix curl wget file bzip2 gzip unzip bsdmainutils python util-linux ca-certificates binutils bc jq tmux lib32gcc1 libstdc++6 libstdc++6:i386 mono-complete
+
 # Cleanup 
 RUN apt-get -y autoremove && \
     apt-get -y clean && \
