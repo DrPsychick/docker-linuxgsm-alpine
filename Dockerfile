@@ -17,7 +17,7 @@ RUN apt-get -y autoremove && \
     rm -rf /var/tmp/*
 
 
-RUN adduser --disabled-password ecoserver && usermod -m -l ecoserver -d /home/ecoserver lgsm && chown -R ecoserver:ecoserver /home/ecoserver
+RUN adduser --disabled-password --gecos "" ecoserver && usermod -m -l ecoserver -d /home/ecoserver lgsm && chown -R ecoserver:ecoserver /home/ecoserver
 
 # install ecoserver
 USER steam
