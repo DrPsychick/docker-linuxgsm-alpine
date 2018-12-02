@@ -30,6 +30,8 @@ RUN cd /home/ecoserver \
     && ./ecoserver fu \
     && ./ecoserver auto-install
 
+WORKDIR /home/ecoserver
+
 EXPOSE 3000/udp 3001/tcp
 
 
