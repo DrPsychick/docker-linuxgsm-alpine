@@ -21,8 +21,8 @@ RUN apt-get -y autoremove && \
 RUN usermod -m -l ecoserver -d /home/ecoserver lgsm && chown -R ecoserver /home/ecoserver
 
 # install ecoserver
-USER steam
-RUN cd /home/steam \
+USER ecoserver 
+RUN cd /home/ecoserver \
     && ./linuxgsm.sh ecoserver \
     && ./ecoserver ul \
     && ./ecoserver fu \
