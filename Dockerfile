@@ -1,8 +1,9 @@
-FROM joshhsoj1902/linuxgsm-docker
+#FROM joshhsoj1902/linuxgsm-docker
+FROM gameservermanagers/linuxgsm-docker
 
 # install mono
 USER root
-RUN apt-get update && apt-get install -y apt-transport-https
+RUN dpkg --add-architecture i386 && apt-get update && apt-get install -y apt-transport-https
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF \
     && echo 'deb https://download.mono-project.com/repo/ubuntu stable-xenial main' | tee /etc/apt/sources.list.d/mono-official-stable.list \
     && apt-get update \
@@ -15,10 +16,15 @@ RUN apt-get -y autoremove && \
     rm -rf /tmp/* && \
     rm -rf /var/tmp/*
 
+
+RUN usermod -m -l ecoserver -d /home/ecoserver steam && chown -R ecoserver:ecoserver /home/ecoserver
+
 # install ecoserver
 USER steam
 RUN cd /home/steam/linuxgsm \
     && ./linuxgsm.sh ecoserver \
+    && ./ecoserver ul \
+    && ./ecoserver 
     && ./ecoserver auto-install
 
 ENV LGSM_GAMESERVERNAME ecoserver
