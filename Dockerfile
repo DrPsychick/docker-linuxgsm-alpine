@@ -24,7 +24,7 @@ USER steam
 RUN cd /home/steam/linuxgsm \
     && ./linuxgsm.sh ecoserver \
     && ./ecoserver ul \
-    && ./ecoserver 
+    && ./ecoserver fu \
     && ./ecoserver auto-install
 
 ENV LGSM_GAMESERVERNAME ecoserver
