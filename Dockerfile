@@ -17,7 +17,7 @@ RUN apt-get -y autoremove && \
     rm -rf /var/tmp/*
 
 
-RUN usermod -m -l ecoserver -d /home/ecoserver steam && chown -R ecoserver:ecoserver /home/ecoserver
+RUN usermod -m -l ecoserver -d /home/ecoserver lgsm && chown -R ecoserver:ecoserver /home/ecoserver
 
 # install ecoserver
 USER steam
